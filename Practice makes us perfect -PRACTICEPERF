@@ -1,0 +1,19 @@
+//c language
+
+#include<stdio.h>
+int main()
+{
+    int a,b,c,d;
+    scanf("%d%d%d%d",&a,&b,&c,&d);
+    int count=0;
+    if(a>=10)
+    count=count+1;
+    if(b>=10)
+    count=count+1;
+     if(c>=10)
+    count=count+1;
+     if(d>=10)
+    count=count+1;
+    printf("%d",count);
+    
+}
