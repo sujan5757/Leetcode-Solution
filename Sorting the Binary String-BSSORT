@@ -1,0 +1,46 @@
+// c++
+
+
+#include <cstdio>
+#include <cstdint>
+#include <vector>
+
+using i64 = int64_t;
+
+const int N = 1e5 + 10;
+
+char s[N];
+
+int main() {
+	int T;
+	scanf("%d", &T);
+	for (int cases = 1; cases <= T; ++cases) {
+	  int n;
+	  scanf("%d%s", &n, s);
+	  std::vector<int> prev_0(n, -1), prev_1(n, -1);
+	  for (int i = 0; i < n; ++i) {
+	    if (i) prev_1[i] = prev_1[i - 1];
+	    if (i) prev_0[i] = prev_0[i - 1];
+	    if (s[i] == '0') prev_0[i] = i;
+	    if (s[i] == '1') prev_1[i] = i;
+	  }
+	  auto is_good = [&](int l, int r) {
+	    r = prev_0[r];
+	    if (r <= l) return true;
+	    r = prev_0[r - 1];
+	    if (r <= l) return true;
+	    r = prev_1[r - 1];
+	    if (r <= l) return true;
+	    r = prev_1[r - 1];
+	    if (r < l) return true;
+	    return false;
+	  };
+	  i64 ret = 0;
+	  for (int l = 0, r = 0; l < n; l++) {
+	    while (r < n && is_good(l, r)) r++;
+	    ret += r - l;
+	  }
+	  printf("%ld\n", ret);
+	}
+	return 0;
+}
