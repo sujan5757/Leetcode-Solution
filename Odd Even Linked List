@@ -1,0 +1,25 @@
+ // c programming
+ 
+ struct ListNode* oddEvenList(struct ListNode* head)
+{
+    if(head==NULL || head->next==NULL)
+        return head;
+    
+    struct ListNode *p=head;
+    struct ListNode *q=p->next;
+    
+    while(q!=NULL && q->next!=NULL)
+    {
+        struct ListNode *tmp=q->next;
+        
+        q->next = q->next->next;
+        
+        tmp->next=p->next;
+        p->next=tmp;        
+        
+        p=p->next;
+        q=q->next;
+    }
+    
+    return head;
+}
